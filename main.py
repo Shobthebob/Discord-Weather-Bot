@@ -318,7 +318,7 @@ def timezone(time):
 
 
 def Data(city):
-    api_key = "d669cc7c60524e76f8b64562d91f6e95"
+    api_key = ""
     url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
     response = requests.get(url)
     if response.status_code == 200:
@@ -812,4 +812,4 @@ async def on_message(message):
         return
 
 client.run(
-    "MTEzMTc2OTQ0NTAwMjUxNDQ3Mg.GFVq-3.CRvzsv8PwQTdUKZC69bcVV9OKNYpdZwR94OIF0")
+    "")
