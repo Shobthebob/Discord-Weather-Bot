@@ -544,5 +544,4 @@ async def on_message(message):
         await message.channel.send("Please enter a valid command")
         return
 
-client.run(
-    "")
+client.run("")
