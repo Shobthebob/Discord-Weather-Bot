@@ -737,6 +737,7 @@ async def on_message(message):
                     city = rem[0:i]
                     attributes = rem[i+1:]
                     break
+            attributes = attributes.split(",")
         except:
             city = rem
         if (city != ""):
