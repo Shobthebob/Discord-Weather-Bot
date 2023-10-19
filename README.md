@@ -8,4 +8,11 @@ Welcome! This Discord bot is designed to provide real-time weather, climate, and
 - Once the bot is in your server, use the `w!help` command to get started
 
 ## NOTE
-This bot has not been hosted anywhere yet. This has also not been uploaded for invites yet.
+This bot has not been hosted anywhere yet which is also why I did not upload it anywhere for invites yet.
+
+## Some Screenshots for proof that it exists and works
+
+<img width="506" alt="image" src="https://github.com/Shobthebob/Discord-Weather-Bot/assets/77617762/fc9e7cec-33ee-4e2e-85b0-526c6a9e6d22">
+<img width="425" alt="image" src="https://github.com/Shobthebob/Discord-Weather-Bot/assets/77617762/142ed993-8b95-4c13-b142-ecefdcdcf5b7">
+<img width="405" alt="image" src="https://github.com/Shobthebob/Discord-Weather-Bot/assets/77617762/7acf2049-f0e6-48ea-8ae8-4b531bd5b433">
+
