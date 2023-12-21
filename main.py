@@ -1,6 +1,6 @@
 import discord
 import requests
-import os
+import random
 
 intent = discord.Intents.default()
 intent.message_content = True
@@ -278,33 +278,31 @@ temperatureColors = {
 
 def temperatureColor(temperature, ):
     unit = tempUnit
-    if ((temperature < 11 and unit == 'c')
-        or (temperature < 51.8 and unit == 'f')
-            or (temperature < 284.15 and unit == 'k')):
+    if ((temperature < 11 and unit == 'c') or (temperature < 51.8 and unit == 'f') or (temperature < 284.15 and unit == 'k')):
         return temperatureColors["<10"]
-    elif ((temperature >= 11 and temperature < 21 and unit == 'c')
-          or (temperature >= 51.8 and temperature < 69.8 and unit == 'f')
-          or (temperature >= 284.15 and temperature < 293.15 and unit == 'k')):
+    elif ((11 <= temperature < 21 and unit == 'c')
+          or (51.8 <= temperature < 69.8 and unit == 'f')
+          or (284.15 <= temperature < 293.15 and unit == 'k')):
         return temperatureColors["11-20"]
-    elif ((temperature >= 21 and temperature < 26 and unit == 'c')
-          or (temperature >= 69.8 and temperature < 78.8 and unit == 'f')
-          or (temperature >= 293.15 and temperature < 302.15 and unit == 'k')):
+    elif ((21 <= temperature < 26 and unit == 'c')
+          or (69.8 <= temperature < 78.8 and unit == 'f')
+          or (293.15 <= temperature < 302.15 and unit == 'k')):
         return temperatureColors["21-25"]
-    elif ((temperature >= 26 and temperature < 31 and unit == 'c')
-          or (temperature >= 78.8 and temperature < 87.8 and unit == 'f')
-          or (temperature >= 302.15 and temperature < 311.15 and unit == 'k')):
+    elif ((26 <= temperature < 31 and unit == 'c')
+          or (78.8 <= temperature < 87.8 and unit == 'f')
+          or (302.15 <= temperature < 311.15 and unit == 'k')):
         return temperatureColors["26-30"]
-    elif ((temperature >= 31 and temperature < 36 and unit == 'c')
-          or (temperature >= 87.8 and temperature < 96.8 and unit == 'f')
-          or (temperature >= 311.15 and temperature < 320.15 and unit == 'k')):
+    elif ((31 <= temperature < 36 and unit == 'c')
+          or (87.8 <= temperature < 96.8 and unit == 'f')
+          or (311.15 <= temperature < 320.15 and unit == 'k')):
         return temperatureColors["31-35"]
-    elif ((temperature >= 36 and temperature < 41 and unit == 'c')
-          or (temperature >= 96.8 and temperature < 105.8 and unit == 'f')
-          or (temperature >= 320.15 and temperature < 329.15 and unit == 'k')):
+    elif ((36 <= temperature < 41 and unit == 'c')
+          or (96.8 <= temperature < 105.8 and unit == 'f')
+          or (320.15 <= temperature < 329.15 and unit == 'k')):
         return temperatureColors["36-40"]
-    elif ((temperature >= 41 and temperature < 46 and unit == 'c')
-          or (temperature >= 105.8 and temperature < 114.8 and unit == 'f')
-          or (temperature >= 329.15 and temperature < 338.15 and unit == 'k')):
+    elif ((41 <= temperature < 46 and unit == 'c')
+          or (105.8 <= temperature < 114.8 and unit == 'f')
+          or (329.15 <= temperature < 338.15 and unit == 'k')):
         return temperatureColors["41-45"]
     else:
         return temperatureColors["46<"]
@@ -328,7 +326,7 @@ def Data(city):
         return None
 
 
-def help():
+def gethelp():
     embed = discord.Embed(
         title="Here To Help!",
         description="I'm a weather bot built by Shoubhit Jamadhiar.\nI can display current weather information for a given city!\nUse `w!command <command_name>` to get more information on a specific command",
@@ -367,10 +365,8 @@ def help():
 def getAll(city):
     data = Data(city)
     city = city.title()
-    print(f"{city}'s data:", data)
     country = data["sys"]["country"]
     weatherID = data['weather'][0]['id']
-    print(f"Tempunit is now {tempUnit}")
 
     if (tempUnit == 'c'):
         current = f"{data['main']['temp']} °C"
@@ -415,11 +411,10 @@ def get(city, specify):
     global wrongCity
     wrongCity = 1
     data = Data(city)
-    if (data == None):
+    if (data is None):
         return
     wrongCity = 0
     city = city.title()
-    print(f"{city}'s data:", data)
     country = data["sys"]["country"]
     embed = discord.Embed(
         title=f"{city.title( )}, {countries[country]}",
@@ -464,24 +459,19 @@ def get(city, specify):
                 embed.add_field(name="Timezone",
                                 value=f"`{timezone(data['timezone'])}`",
                                 inline=True)
-            elif (i == "curr" or i == "current" or i == "currtemp"
-                  or i == "currenttemperature" or i == "current temperature"):
+            elif (i in ("curr", "current", "currtemp", "currenttemperature", "current temperature")):
                 embed.add_field(name="Current Temperature",
                                 value=f"`{current}`",
                                 inline=True)
-            elif (i == "min" or i == "minimum" or i == "mintemp"
-                  or i == "minimumtemperature" or i == "minimum temperature"):
+            elif (i in ("min", "minimum", "mintemp", "minimumtemperature", "minimum temperature")):
                 embed.add_field(name="Minimum Temperature",
                                 value=f"`{minimum}`",
                                 inline=True)
-            elif (i == "max" or i == "maximum" or i == "maxtemp"
-                  or i == "maximumtemperature" or i == "maximum temperature"):
+            elif (i in ("max", "maximum", "maxtemp", "maximumtemperature", "maximum temperature")):
                 embed.add_field(name="Maximum Temperature",
                                 value=f"`{maximum}`",
                                 inline=True)
-            elif (i == "forecast" or i == "predicted temperature"
-                  or i == "predictedtemperature" or i == "forecasted temperature"
-                  or i == "forecastedtemperature"):
+            elif (i in ("forecast", "predicted temperature", "predictedtemperature", "forecasted temperature", "forecastedtemperature")):
                 embed.add_field(name="Temperature Forecast",
                                 value=f"`{forecast}`",
                                 inline=True)
@@ -516,7 +506,6 @@ def get(city, specify):
 def getLoc(city):
     data = Data(city)
     city = city.title()
-    print(f"{city}'s data:", data)
     country = data["sys"]["country"]
     embed = discord.Embed(
         title=f"{city.title( )}, {countries[country]}",
@@ -532,7 +521,6 @@ def getLoc(city):
 def getTemp(city):
     data = Data(city)
     city = city.title()
-    print(f"{city}'s data:", data)
     country = data["sys"]["country"]
     color = temperatureColor(data['main']['temp'])
 
@@ -566,7 +554,6 @@ def getTemp(city):
 def getAtm(city):
     data = Data(city)
     city = city.title()
-    print(f"{city}'s data:", data)
     country = data['sys']['country']
     weatherID = data['weather'][0]['id']
     embed = discord.Embed(
@@ -583,7 +570,6 @@ def getAtm(city):
 def getWeather(city):
     data = Data(city)
     city = city.title()
-    print(f"{city}'s data:", data)
     country = data["sys"]["country"]
     weatherID = data['weather'][0]['id']
     embed = discord.Embed(
@@ -595,6 +581,13 @@ def getWeather(city):
         value=f"Weather : `{data['weather'][0]['main']}`\nWind : `{data['wind']['speed']} m/s`",
         inline=False)
     return embed
+
+
+def easteregg(number):
+    if (number == 0.719699527220711):
+        return "I did not know units were a fan of John Cena"
+    else:
+        return "Please enter a valid unit (c/f/k)"
 
 
 @client.event
@@ -613,7 +606,7 @@ async def on_message(message):
         return
 
     if (mes.split()[0] == "w!help"):
-        embed = help()
+        embed = gethelp()
         await message.channel.send(embed=embed)
         return
 
@@ -622,8 +615,8 @@ async def on_message(message):
         command = command.lower()
         embed = discord.Embed(color=discord.Color.random())
 
-        if (command == "w!getall" or command == "getall"):
-            embed.title = f"Command: `w!getAll`"
+        if (command in ("w!getall", "getall")):
+            embed.title = "Command: `w!getAll`"
             embed.description = "Displays all the weather, climate, and forecast information for the given city."
             embed.add_field(name="Syntax: `w!getAll <city_name>`",
                             value="",
@@ -632,8 +625,8 @@ async def on_message(message):
                             value="",
                             inline=False)
 
-        if (command == "w!getloc" or command == "getloc"):
-            embed.title = f"Command: `w!getLoc`"
+        if (command in ("w!getloc", "getloc")):
+            embed.title = "Command: `w!getLoc`"
             embed.description = "Displays the `latitude`, `longitude`, and `timezone` for the given city."
             embed.add_field(name="Syntax: `w!getLoc <city_name>`",
                             value="",
@@ -642,8 +635,8 @@ async def on_message(message):
                             value="",
                             inline=False)
 
-        if (command == "w!gettemp" or command == "gettemp"):
-            embed.title = f"Command: `w!getTemp`"
+        if (command in ("w!gettemp", "gettemp")):
+            embed.title = "Command: `w!getTemp`"
             embed.description = "Will tell you about the `current temperature`, `minimum temperature`, `maximum temperature`, and `forecast (predicted temp)`for the given city."
             embed.add_field(name="Syntax: `w!getTemp <city_name>`",
                             value="",
@@ -652,8 +645,8 @@ async def on_message(message):
                             value="",
                             inline=False)
 
-        if (command == "w!getatm" or command == "getatm"):
-            embed.title = f"Command: `w!getAtm`"
+        if (command in ("w!getatm", "getatm")):
+            embed.title = "Command: `w!getAtm`"
             embed.description = "Displays the `pressure`, `humidity`, and `visibility` for the given city."
             embed.add_field(name="Syntax: `w!getAtm <city_name>`",
                             value="",
@@ -661,8 +654,8 @@ async def on_message(message):
             embed.add_field(name="Example: `w!getAtm Tokyo`",
                             value="", inline=False)
 
-        if (command == "w!getweather" or command == "getweather"):
-            embed.title = f"Command: `w!getWeather`"
+        if (command in ("w!getweather", "getweather")):
+            embed.title = "Command: `w!getWeather`"
             embed.description = "Displays the `weather` and `wind speed` for the given city."
             embed.add_field(name="Syntax: `w!getWeather <city_name>`",
                             value="",
@@ -671,8 +664,8 @@ async def on_message(message):
                             value="",
                             inline=False)
 
-        if (command == "w!get" or command == "get"):
-            embed.title = f"Command: `w!get`"
+        if (command in ("w!get", "get")):
+            embed.title = "Command: `w!get`"
             embed.description = "Displays specific weather information for the given city. Specify one or more fields (upto 12) to get specific information (e.g., temperature, humidity, wind speed, etc.).\nIf you have only entered 1 field, add a comma after that attribute"
             embed.add_field(name="Syntax: `w!get <city_name> <field1, field2, ...>`",
                             value="",
@@ -682,8 +675,8 @@ async def on_message(message):
                 value="",
                 inline=False)
 
-        if (command == "w!convert" or command == "convert"):
-            embed.title = f"Command: `w!convert`"
+        if (command in ("w!convert", "convert")):
+            embed.title = "Command: `w!convert`"
             embed.description = "Converts the temperature unit to Celsius (c), Fahrenheit (f), or Kelvin (k)."
             embed.add_field(name="Syntax: `w!convert <unit>`",
                             value="",
@@ -696,6 +689,9 @@ async def on_message(message):
         return
 
     if (mes.split()[0] == "w!convert"):
+        if (len(mes.split()) is 1):
+            await message.channel.send(easteregg(random.random()))
+            return
         if (mes.split()[1] == "c" or mes.split()[1] == "celcius"):
             tempUnit = "c"
             await message.channel.send("Temperature unit has been set to Celsius")
@@ -719,7 +715,7 @@ async def on_message(message):
             try:
                 embed = getAll(city)
                 await message.channel.send(embed=embed)
-            except:
+            except Exception as e:
                 await message.channel.send("Please give a valid/existing city name")
         else:
             await message.channel.send("Please give a valid/existing city name")
@@ -728,7 +724,6 @@ async def on_message(message):
     if (mes.split()[0] == "w!get"):
         spli = mes.split("w!get")
         rem = spli[1].strip()
-        print(type(rem))
         attributes = []
         try:
             comma = rem.index(",")
@@ -737,13 +732,14 @@ async def on_message(message):
                     city = rem[0:i]
                     attributes = rem[i+1:]
                     break
-        except:
+            attributes = attributes.split(",")
+        except Exception as e:
             city = rem
         if (city != ""):
             try:
                 embed = get(city, attributes)
                 await message.channel.send(embed=embed)
-            except:
+            except Exception as e:
                 if (attributes != [] and wrongCity == 1):
                     await message.channel.send("Please give a valid/existing city name")
                 if (attributes == [] and wrongCity == 1):
@@ -765,7 +761,7 @@ async def on_message(message):
             try:
                 embed = getLoc(city)
                 await message.channel.send(embed=embed)
-            except:
+            except Exception as e:
                 await message.channel.send("Please give a valid/existing city name")
         else:
             await message.channel.send("Please give a valid/existing city name")
@@ -777,7 +773,7 @@ async def on_message(message):
             try:
                 embed = getTemp(city)
                 await message.channel.send(embed=embed)
-            except:
+            except Exception as e:
                 await message.channel.send("Please give a valid/existing city name")
         else:
             await message.channel.send("Please give a valid/existing city name")
@@ -789,7 +785,7 @@ async def on_message(message):
             try:
                 embed = getAtm(city)
                 await message.channel.send(embed=embed)
-            except:
+            except Exception as e:
                 await message.channel.send("Please give a valid/existing city name")
         else:
             await message.channel.send("Please give a valid/existing city name")
@@ -801,7 +797,7 @@ async def on_message(message):
             try:
                 embed = getWeather(city)
                 await message.channel.send(embed=embed)
-            except:
+            except Exception as e:
                 await message.channel.send("Please give a valid/existing city name")
         else:
             await message.channel.send("Please give a valid/existing city name")
@@ -811,5 +807,4 @@ async def on_message(message):
         await message.channel.send("Please enter a valid command")
         return
 
-client.run(
-    "")
+client.run("")
