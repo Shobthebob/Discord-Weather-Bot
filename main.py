@@ -205,6 +205,37 @@ countries = {
     'ZW': 'Zimbabwe',
 }
 
+attributes = (
+    "longitude",
+    "latitude",
+    "timezone",
+    "curr",
+    "current",
+    "currtemp",
+    "currenttemperature",
+    "current temperature",
+    "min",
+    "minimum",
+    "mintemp",
+    "minimumtemperature",
+    "minimum temperature",
+    "max",
+    "maximum",
+    "maxtemp",
+    "maximumtemperature",
+    "maximum temperature",
+    "forecast",
+    "predicted temperature",
+    "predictedtemperature",
+    "forecasted temperature",
+    "forecastedtemperature",
+    "pressure",
+    "humidity",
+    "visibility",
+    "weather",
+    "windspeed"
+)
+
 weatherColors = {
     200: discord.Color.from_rgb(47, 79, 79),  # Thunderstorm with Light Rain
     201: discord.Color.from_rgb(47, 79, 79),  # Thunderstorm with Rain
@@ -583,11 +614,22 @@ def getWeather(city):
     return embed
 
 
-def easteregg(number):
+def easteregg1(number):
     if (number == 0.719699527220711):
-        return "I did not know units were a fan of John Cena"
+        return "Damnnnnnn, do such values actually exist??"
+    elif (number == 0.025385066494412523):
+        return "Installing trojan on your PC..."
     else:
         return "Please enter a valid unit (c/f/k)"
+
+
+def easteregg2(number):
+    if (number == 0.3386791850781906):
+        return "Damnnnnnn, do such values actually exist??"
+    elif (number == 0.396789017233239):
+        return "Hey I know I am just a bot but sometimes even I get troubled so please just do what the command tells you to do"
+    else:
+        return "Please specify some attributes"
 
 
 @client.event
@@ -690,7 +732,7 @@ async def on_message(message):
 
     if (mes.split()[0] == "w!convert"):
         if (len(mes.split()) is 1):
-            await message.channel.send(easteregg(random.random()))
+            await message.channel.send(easteregg1(random.random()))
             return
         if (mes.split()[1] == "c" or mes.split()[1] == "celcius"):
             tempUnit = "c"
@@ -703,10 +745,6 @@ async def on_message(message):
             await message.channel.send("Temperature unit has been set to Kelvin")
         else:
             await message.channel.send("Please enter a valid unit (c/f/k)")
-        return
-
-    if (mes.split()[0] == "w!test"):
-        await message.channel.send("Your test works")
         return
 
     if (mes.split()[0] == "w!getall"):
@@ -722,37 +760,43 @@ async def on_message(message):
         return
 
     if (mes.split()[0] == "w!get"):
-        spli = mes.split("w!get")
-        rem = spli[1].strip()
-        attributes = []
-        try:
-            comma = rem.index(",")
-            for i in range(comma, 0, -1):
-                if rem[i] == " ":
-                    city = rem[0:i]
-                    attributes = rem[i+1:]
-                    break
-            attributes = attributes.split(",")
-        except Exception as e:
+        spli = mes.split()
+        rem = spli[1:]
+        attribute = []
+        city = ""
+        s = ""
+        new = []
+        if (len(spli) == 2):
             city = rem
+            await message.channel.send(easteregg2(random.random()))
+        else:
+            newrem = [i.replace(',', '') for i in rem]
+            for i in range(len(rem)):
+                if (newrem[i] in attributes):
+                    city = ' '.join(rem[0:i])
+                    attribute = rem[i:]
+                    break
+
+            for i in attribute:
+                s = s + i
+                if (',' in i):
+                    new.append(s.strip())
+                    s = ""
+                    continue
+                s += " "
+            new.append(s.strip())
+            new = [i.replace(',', '') for i in new]
+
         if (city != ""):
             try:
-                embed = get(city, attributes)
+                embed = get(city, new)
                 await message.channel.send(embed=embed)
             except Exception as e:
-                if (attributes != [] and wrongCity == 1):
+                if (new != [] and wrongCity == 1):
                     await message.channel.send("Please give a valid/existing city name")
-                if (attributes == [] and wrongCity == 1):
-                    await message.channel.send("Firstly, give a valid/existing city name. Secondly, specify some attributes. If you dont get how the command works then use `w!command get`")
-                if (attributes == [] and wrongCity == 0):
-                    await message.channel.send(f"Was it not clear that you're supposed to specify some attributes for {city}")
         else:
-            if (attributes == [] and wrongCity == 0):
-                await message.channel.send(f"Was it not clear that you're supposed to specify some attributes for {city}")
-            if (attributes != [] and wrongCity == 1):
-                await message.channel.send("Please give a valid/existing city name")
-            if (attributes == [] and wrongCity == 1):
-                await message.channel.send("Firstly, give a valid/existing city name. Secondly, specify some attributes. If you dont get how the command works then use `w!command get`")
+            await message.channel.send("Please give a valid/existing city name")
+
         return
 
     if (mes.split()[0] == "w!getloc"):
