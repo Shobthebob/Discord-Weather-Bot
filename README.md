@@ -19,6 +19,6 @@ To add this Discord Weather Bot to your server, follow these steps:
 <img width="506" alt="image" src="https://github.com/Shobthebob/Discord-Weather-Bot/assets/77617762/fc9e7cec-33ee-4e2e-85b0-526c6a9e6d22">
 <img width="425" alt="image" src="https://github.com/Shobthebob/Discord-Weather-Bot/assets/77617762/142ed993-8b95-4c13-b142-ecefdcdcf5b7">
 <img width="405" alt="image" src="https://github.com/Shobthebob/Discord-Weather-Bot/assets/77617762/7acf2049-f0e6-48ea-8ae8-4b531bd5b433">
-## Copyright
 
+## Copyright
 © 2024 Shoubhit Jamadhiar. All rights reserved. This project is licensed under the [MIT License.](https://github.com/Shobthebob/Discord-Weather-Bot/blob/main/LICENSE)
