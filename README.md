@@ -22,3 +22,7 @@ To add this Discord Weather Bot to your server, follow these steps:
 
 ## Copyright
 © 2024 Shoubhit Jamadhiar. All rights reserved. This project is licensed under the [MIT License.](https://github.com/Shobthebob/Discord-Weather-Bot/blob/main/LICENSE)
+
+## Policies
+- [Terms of Service](TERMS_OF_SERVICE.md)
+- [Privacy Policy](PRIVACY_POLICY.md)
